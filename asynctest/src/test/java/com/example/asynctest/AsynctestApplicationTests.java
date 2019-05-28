@@ -150,4 +150,33 @@ public class AsynctestApplicationTests {
         field.set(testReflectionPojo, "最帅");
         System.out.println(testReflectionPojo.getName());
     }
+
+    /**
+     * 使用java反射可以检查类方法，并在运行时调用他们
+     */
+    @Test
+    public void testReflectionMethod() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class testReflectionPojoClass = TestReflectionPojo.class;
+        // 获得每个公用方法的实例
+        Method[] methods = testReflectionPojoClass.getMethods();
+        log.info(methods.length);
+        Method method = testReflectionPojoClass.getMethod("doSomething", String.class);
+
+        // 如果访问不带参数的方法，可以将null作为参数类型数组, 或者不填
+        Method method2 = testReflectionPojoClass.getMethod("doSomething2");
+
+        // 得到给定方法参数类型
+        Class[] paramenterTypes = method.getParameterTypes();
+
+        // 得到方法的返回类型
+        Class returnType = method.getReturnType();
+
+        TestReflectionPojo testReflectionPojo = new TestReflectionPojo();
+
+        method2.invoke(testReflectionPojo);
+        // 通过invoke调用方法, Method.invoke（Object target，Object ... parameters）方法接受可选数量的参数, 但必须为要调用的方法中提供实例
+        Object value = method.invoke(testReflectionPojo, "薛瑞最帅");
+        System.out.println(testReflectionPojo.getName());
+
+    }
 }
