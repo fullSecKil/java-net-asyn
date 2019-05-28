@@ -1,0 +1,16 @@
+task:
+  pool:
+    core-pool-size: 20
+    max-pool-size: 40
+    keep-alive-seconds: 300
+    queue-capacity: 50
+
+mail:
+  host: mailer@mail.com
+  port: 9000
+  from: mailer@mail.com
+  pets:
+    - cat
+    - dog
+    - pig
+
